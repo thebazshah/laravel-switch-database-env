@@ -11,6 +11,7 @@
 
 This repository is is linked with a two-part Medium article. Code is written to fulfil the requirement of having two different database environments where user is able to choose between the two (or more), and application simply starts storing and retrieving data from one or the other set of tables. Suppose you want to have tables in your database like this:
 
+```
 Common tables (for authentication and configuration etc.)
 --- users
 
@@ -23,6 +24,7 @@ Development tables (for storing development content)
 --- articles
 --- comments
 --- tags
+```
 
 Common tables are used regardless of which environment is set but user should be able to switch between the other two sets of tables: development and production. This is what this repository showcases. And this is what I have explained in following Medium articles.
 1. [Laravel: Having Two (or More) Sets of Tables You Can Switch Between as per User Preferences (Part 1 of 2)](https://medium.com/@thebazshah/laravel-having-two-or-more-sets-of-tables-according-to-user-preferences-part-1-of-2-ab0a25a1ab40)
