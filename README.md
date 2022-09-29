@@ -7,60 +7,41 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About This Repository
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This repository is is linked with a two-part Medium article. Code is written to fulfil the requirement of having two different database environments where user is able to choose between the two (or more), and application simply starts storing and retrieving data from one or the other set of tables. Suppose you want to have tables in your database like this:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Common tables (for authentication and configuration etc.)
+--- users
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Production tables (for storing production content)
+--- articles
+--- comments
+--- tags
 
-## Learning Laravel
+Development tables (for storing development content)
+--- articles
+--- comments
+--- tags
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Common tables are used regardless of which environment is set but user should be able to switch between the other two sets of tables: development and production. This is what this repository showcases. And this is what I have explained in following Medium articles.
+1. [Laravel: Having Two (or More) Sets of Tables You Can Switch Between as per User Preferences (Part 1 of 2)](https://medium.com/@thebazshah/laravel-having-two-or-more-sets-of-tables-according-to-user-preferences-part-1-of-2-ab0a25a1ab40)
+2. [Laravel: Having Two (or More) Sets of Tables You Can Switch Between as per User Preferences (Part 2 of 2)](https://medium.com/@thebazshah/laravel-having-two-or-more-sets-of-tables-you-can-switch-between-as-per-user-preferences-part-2-f1f3e34b0f32)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## How to Set Up
+Having all of the dependencies installed and correctly working, as described in the articles, open a terminal and run following command.
+```
+composer install
+```
+Once everything is installed, simply run the application (using Laravel Sail).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+./vendor/bin/sail up
+```
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Once all of the containers are up and running, you can migrate the database changes to database, and then seed the data.
+```
+php artisan migrate
+php artisan db:seed
+```
+After successful invocation of these commands, you can use HTTP client of your choice to test the API.
